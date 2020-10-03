@@ -1,3 +1,22 @@
-.page
+.view
+  display: flex
+  flex-direction: column
+
   header
+    display: flex
+    align-items: center
     font-weight: 600
+    background-color: var(--element-bg-color)
+    min-height: 83px
+    padding-left: var(--left-gutter-size)
+
+  > section
+    padding-top: 47px
+    padding-left: var(--left-gutter-size)
+    box-sizing: border-box
+
+input
+  padding: 15px 0
+
+  ::placeholder, :-ms-input-placeholder, ::-ms-input-placeholder
+    color: red

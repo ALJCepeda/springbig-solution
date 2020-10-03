@@ -6,7 +6,7 @@ module.exports = {
       sass: {
         // @/ is an alias to src/
         // so this assumes you have a file named `src/variables.scss`
-        prependData: '@import "@/sass/index.sass";'
+        prependData: '@import "@/sass/index.sass"'
       },
       // pass Less.js Options to less-loader
       less: {
