@@ -1,6 +1,6 @@
 # color-switcher-solution2
 
-https://aljcepeda.github.io/color-switcher-solution/
+https://aljcepeda.github.io/springbig-solution/
 
 ## Project setup
 ```
