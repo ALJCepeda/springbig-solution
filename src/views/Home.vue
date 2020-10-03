@@ -6,7 +6,7 @@
 
     <section class="filters">
       <label>
-        <app-input style="width:400px">
+        <app-input style="width:400px" v-model="countryNameFilter">
           <template v-slot:leftIcon>
             <fai icon="search" />
           </template>
@@ -15,8 +15,12 @@
     </section>
 
     <section class="content">
-      <div v-for="country in countries" :key="country.name" class="country-card">
+      <div v-for="country in filteredCountries" :key="country.name" class="country-card">
         <app-country-card :country="country"></app-country-card>
+      </div>
+
+      <div v-if="filteredCountries.length === 0">
+        No countries found :(
       </div>
     </section>
   </main>
@@ -33,13 +37,19 @@ import Country from '@/models/Country'
 })
 export default class Home extends Vue {
   countries: Country[] = [];
+  countryNameFilter = '';
+
+  get filteredCountries(): Country[] {
+    return this.countries.filter((country) => country.name.toLocaleLowerCase().includes(this.countryNameFilter.toLocaleLowerCase()))
+  }
 
   mounted () {
     this.fetchCountries()
   }
 
   fetchCountries () {
-    fetch('https://restcountries.eu/rest/v2/all').then(resp => resp.json())
+    fetch('https://restcountries.eu/rest/v2/all')
+      .then(resp => resp.json())
       .then(result => result.map((rawCountry: never) => new Country(rawCountry)))
       .then(countries => this.countries = countries)
   }
@@ -57,7 +67,4 @@ export default class Home extends Vue {
     justify-content: space-evenly
     width: 100%
     margin: auto
-
-  .view
-    max-width: 1450px
 </style>

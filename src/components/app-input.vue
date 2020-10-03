@@ -4,13 +4,37 @@
       <slot name="leftIcon"></slot>
     </div>
 
-    <input placeholder="Search for a country..." />
+    <input placeholder="Search for a country..." :value="val" @input="onInputChange" ref="input" />
   </main>
 </template>
 
-<script>
-export default {
-  name: 'app-input'
+<script lang="ts">
+import { Component, Prop, Ref, Vue, Watch } from 'vue-property-decorator'
+
+@Component
+export default class AppInput extends Vue {
+  name = 'app-input'
+  @Prop() value: string
+
+  val: string
+
+  @Ref('input')
+  element: HTMLInputElement
+
+  created() {
+    this.val = this.value
+  }
+
+  @Watch('value')
+  onValueChange(newVal) {
+    this.element.value = newVal
+  }
+
+  onInputChange(event) {
+    const value = typeof event === 'string' ? event : event.target.value
+    this.val = value
+    this.$emit('input', value)
+  }
 }
 </script>
 
