@@ -1,5 +1,7 @@
 # color-switcher-solution2
 
+https://aljcepeda.github.io/color-switcher-solution/
+
 ## Project setup
 ```
 npm install
