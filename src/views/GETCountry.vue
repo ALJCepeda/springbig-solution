@@ -42,15 +42,13 @@ export default class GETCountry extends Vue {
   .view
     display: flex
     flex-wrap: wrap
-    padding-top: 200px
-    padding-left: var(--left-gutter-size)
-    padding-bottom: 340px
+    padding: 200px var(--left-gutter-size) 340px var(--left-gutter-size)
 
   img
-    max-width: 560px
-    max-height: 400px
     object-fit: cover
     margin-right: 115px
+    width: 100%
+    flex: 1
 
   .info
     display: flex
@@ -67,14 +65,16 @@ export default class GETCountry extends Vue {
     display: flex
     flex-direction: column
     box-sizing: border-box
-    flex-grow: 1
+    flex-grow: 2
 
     &:first-child
-      margin-right: 40px
-      flex-grow: 2
+      margin-right: 25px
+      flex-grow: 1
 
   .info-container
-    flex: 1
+    flex-grow: 1
+    flex-shrink: 1
+    flex-basis: 10px
 
   .detail
     white-space: nowrap
