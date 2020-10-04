@@ -1,6 +1,6 @@
 <template>
   <main class="view">
-    <img :src="country.flagURL"/>
+    <img :src="country.flagURL" :alt="country.name + ' Flag'" />
 
     <div class="info-container">
       <header>{{ country.name }}</header>
@@ -11,7 +11,7 @@
           <div class="detail">Population: <span>{{ country.population }}</span></div>
           <div class="detail">Region: <span>{{ country.region }}</span></div>
           <div class="detail">Sub Region: <span>{{ country.subRegion }}</span></div>
-          <div clsss="detail">Capital: <span>{{ country.capital }}</span></div>
+          <div class="detail">Capital: <span>{{ country.capital }}</span></div>
         </div>
 
         <div class="aside">
@@ -42,7 +42,6 @@ export default class GETCountry extends Vue {
   .view
     display: flex
     flex-wrap: wrap
-    flex-basis: 0
     padding-top: 200px
     padding-left: var(--left-gutter-size)
     padding-bottom: 340px
@@ -75,5 +74,8 @@ export default class GETCountry extends Vue {
       flex-grow: 2
 
   .info-container
-    flex-grow: 1
+    flex: 1
+
+  .detail
+    white-space: nowrap
 </style>
