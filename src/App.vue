@@ -1,6 +1,10 @@
 <template>
   <div id="app" class="dark">
-    <router-view/>
+    <header>
+      Where in the world?
+    </header>
+
+    <router-view />
   </div>
 </template>
 
@@ -11,7 +15,11 @@
   -moz-osx-font-smoothing: grayscale
   color: var(--text-color)
   background-color: var(--bg-color)
-  display: flex
-  justify-content: center
   min-height: 100vh
+
+  > header
+    background-color: var(--element-bg-color)
+    min-height: 83px
+    padding-left: var(--left-gutter-size)
+    padding-right: var(--right-gutter-size)
 </style>

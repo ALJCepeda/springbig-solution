@@ -1,20 +1,12 @@
+body
+  margin: 0
+  background-color: yellow
+  
 .view
-  display: flex
-  flex-direction: column
-  width: 100%
-  max-width: 1450px
-
-  header
-    display: flex
-    align-items: center
-    font-weight: 600
-    background-color: var(--element-bg-color)
-    min-height: 83px
-    padding-left: var(--left-gutter-size)
-
   > section
     padding-top: 47px
     padding-left: var(--left-gutter-size)
+    padding-right: var(--right-gutter-size)
     box-sizing: border-box
 
 input
@@ -22,3 +14,8 @@ input
 
   ::placeholder, :-ms-input-placeholder, ::-ms-input-placeholder
     color: red
+
+header
+  display: flex
+  align-items: center
+  font-weight: 600

@@ -1,14 +1,33 @@
 export default class Country {
-  public raw: any
+  public name!: string
+  public population!: number
+  public region!: string
+  public capital!: string
+  public alphaCodes!: string[]
+  public flagURL!: string
+  public nativeName!: string
+  public topLevelDomain!: string[]
+  public currencies!: string[]
+  public languages!: string[]
+  public subRegion!: string
 
-  public get name(): string { return this.raw.name }
-  public get population(): number { return this.raw.population }
-  public get region(): string { return this.raw.region }
-  public get capital(): string { return this.raw.capital }
-  public get alphaCodes(): string[] { return [this.raw.alpha2Code, this.raw.alpha3Code] }
-  public get flagURL(): string { return this.raw.flag }
+  constructor(data: Country) {
+    Object.assign(this, data)
+  }
 
-  constructor(raw: any) {
-    this.raw = raw
+  static fromAPI(raw: any): Country {
+    return {
+      name: raw.name,
+      population: raw.population,
+      region: raw.region,
+      capital: raw.capital,
+      alphaCodes: [raw.alpha2Code, raw.alpha3Code],
+      flagURL: raw.flag,
+      nativeName: raw.nativeName,
+      topLevelDomain: raw.topLevelDomain,
+      currencies: raw.currencies.map((currency: any) => currency.name),
+      languages: raw.languages.map((language: any) => language.name),
+      subRegion: raw.subregion
+    }
   }
 }

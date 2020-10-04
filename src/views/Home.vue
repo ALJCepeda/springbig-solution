@@ -1,9 +1,5 @@
 <template>
   <main class="view">
-    <header>
-      Where in the world?
-    </header>
-
     <section class="filters">
       <label>
         <app-input style="width:400px" v-model="countryNameFilter">
@@ -15,7 +11,7 @@
     </section>
 
     <section class="content">
-      <div v-for="country in filteredCountries" :key="country.name" class="country-card">
+      <div v-for="country in filteredCountries" :key="country.name" class="country-card" @click="clickedCountry(country)">
         <app-country-card :country="country"></app-country-card>
       </div>
 
@@ -31,27 +27,25 @@ import { Component, Vue } from 'vue-property-decorator'
 import AppInput from '@/components/app-input.vue'
 import AppCountryCard from '@/components/app-country-card.vue'
 import Country from '@/models/Country'
+import { mapGetters } from 'vuex'
 
 @Component({
-  components: { AppInput, AppCountryCard }
+  components: { AppInput, AppCountryCard },
+  computed: {
+    ...mapGetters([
+      'countries'
+    ])
+  }
 })
 export default class Home extends Vue {
-  countries: Country[] = [];
-  countryNameFilter = '';
+  countryNameFilter = ''
 
   get filteredCountries(): Country[] {
     return this.countries.filter((country) => country.name.toLocaleLowerCase().includes(this.countryNameFilter.toLocaleLowerCase()))
   }
 
-  mounted () {
-    this.fetchCountries()
-  }
-
-  fetchCountries () {
-    fetch('https://restcountries.eu/rest/v2/all')
-      .then(resp => resp.json())
-      .then(result => result.map((rawCountry: never) => new Country(rawCountry)))
-      .then(countries => this.countries = countries)
+  clickedCountry(country: Country) {
+    this.$router.push(`/${country.alphaCodes[0]}`)
   }
 }
 </script>
