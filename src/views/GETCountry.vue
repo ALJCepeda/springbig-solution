@@ -48,6 +48,7 @@ export default class GETCountry extends Vue {
     object-fit: cover
     margin-right: 115px
     width: 100%
+    max-width: 560px
     flex: 1
 
   .info
@@ -73,8 +74,7 @@ export default class GETCountry extends Vue {
 
   .info-container
     flex-grow: 1
-    flex-shrink: 1
-    flex-basis: 10px
+    flex-basis: 0
 
   .detail
     white-space: nowrap
