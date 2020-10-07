@@ -1,11 +1,24 @@
-import Vuex, { Store } from 'vuex'
+import Vuex, { ActionContext, Store } from 'vuex'
 import Country from '@/models/Country'
-import { AppError, UserError } from '@/errors'
+import { APIError, AppError, DisplayableError } from '@/errors'
 
 export interface AppState {
   errors: AppError[];
   countries: Country[];
   index: Map<string, Country>;
+}
+
+function GenericAPIErrorCatcher(context: ActionContext<AppState, AppState>) {
+  return (resp: any) => {
+    /*
+      Do some error logging here
+   */
+    console.log(resp)
+    debugger
+    context.commit('encounteredErrors', [
+      new APIError('Error encountered connecting to API, please contact support at 911 if this error persists')
+    ])
+  }
 }
 
 export function initializeStore(): Store<AppState> {
@@ -45,7 +58,7 @@ export function initializeStore(): Store<AppState> {
         }
       },
       displayableErrors(state) {
-        return state.errors.filter((error) => error instanceof UserError && !error.cleared)
+        return state.errors.filter((error) => error instanceof DisplayableError && !error.cleared)
       },
       availableRegions(state) {
         const regions = state.countries.reduce((regions, country) => regions.add(country.region), new Set())
@@ -67,14 +80,19 @@ export function initializeStore(): Store<AppState> {
       }
     },
     actions: {
-      fetchCountries({ commit }) {
+      fetchCountries(context: ActionContext<AppState, AppState>) {
+        if (context.state.countries.length > 0) {
+          return Promise.resolve(context.state.countries)
+        }
+
         return fetch('https://restcountries.eu/rest/v2/all')
           .then(resp => resp.json())
           .then(result => result.map((rawCountry: never) => Country.fromAPI(rawCountry)))
           .then(countries => {
-            commit('setCountries', countries)
+            context.commit('setCountries', countries)
             return countries
           })
+          .catch(GenericAPIErrorCatcher(context))
       }
     }
   })

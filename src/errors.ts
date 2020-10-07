@@ -8,6 +8,9 @@ export class AppError {
   }
 }
 
-export class UserError extends AppError {
+export class DisplayableError extends AppError {
   cleared = false
 }
+
+export class UserError extends DisplayableError {}
+export class APIError extends DisplayableError {}

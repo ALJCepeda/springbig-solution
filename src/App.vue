@@ -17,7 +17,7 @@
     </header>
 
     <div class="errors gutters" v-if="displayableErrors.length > 0">
-      <div class="error" v-for="error in displayableErrors" :key="error.message">
+      <div class="error" v-for="(error, index) in displayableErrors" :key="index">
         <span>{{ error.message }}</span>
         <span @click="error.cleared = true">
           <fai icon="times-circle" />
@@ -25,13 +25,7 @@
       </div>
     </div>
 
-    <div v-show="!fetching">
-      <router-view />
-    </div>
-
-    <div v-if="fetching">
-      <h3>Pretend there some fancy loading screen here with a bunch of shiny trinkets moving around to keep you distracted while I fetch data</h3>
-    </div>
+    <router-view />
   </div>
 </template>
 
@@ -49,11 +43,6 @@ import { mapGetters } from 'vuex'
 export default class App extends Vue {
   name='App'
   isDark = true
-  fetching = true
-
-  created() {
-    this.$store.dispatch('fetchCountries').finally(() => this.fetching = false)
-  }
 }
 </script>
 
@@ -92,4 +81,8 @@ export default class App extends Vue {
 
   .fa-moon, .fa-sun
     margin-right: 5px
+
+  @include upto-mobile
+    header
+      font-size: 13px
 </style>

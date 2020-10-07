@@ -13,7 +13,7 @@
     </div>
 
     <div class="items shadow" v-if="focused">
-      <div class="item" v-for="item in items" :key="item" :class="{ hidden: selected === item }" @click="clickedItem(item)">
+      <div class="item" v-for="(item, index) in items" :key="index" :class="{ hidden: selected === item }" @click="clickedItem(item)">
         {{ item }}
       </div>
     </div>

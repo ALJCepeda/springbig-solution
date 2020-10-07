@@ -108,25 +108,26 @@ export default class GETCountry extends Vue {
   header
     margin-top: 50px
     margin-bottom: 20px
-    padding: 0 var(--left-gutter-size)
+    padding: 0 var(--gutter-size)
 
   .content
     display: flex
     flex-wrap: wrap
-    padding: 0 var(--left-gutter-size)
+    padding: 0 var(--gutter-size)
+    column-gap: 115px
+    padding-bottom: 100px
 
   img
     display: block
-    margin-right: 115px
     width: 100%
     max-width: 560px
 
   .description
     display: flex
     flex-wrap: wrap
-
-    .row
-      max-width: 295px
+    column-gap: 25px
+    row-gap: 50px
+    margin-bottom: 50px
 
   h1
     margin-bottom: 45px
@@ -136,11 +137,6 @@ export default class GETCountry extends Vue {
     flex-direction: column
     box-sizing: border-box
     flex-grow: 2
-    margin-bottom: 50px
-
-    &:first-child
-      margin-right: 25px
-      margin-bottom: 50px
 
   .info
     margin-top: 30px
@@ -150,14 +146,13 @@ export default class GETCountry extends Vue {
   .badge-container
     display: flex
     flex-wrap: wrap
+    gap: 10px
 
     label
       white-space: nowrap
       margin-right: 10px
       padding-top: 7px
-      margin-bottom: 20px
 
-    > *
-      margin-right: 10px
-      margin-bottom: 10px
+  .view
+    padding-bottom: 40px
 </style>

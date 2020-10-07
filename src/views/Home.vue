@@ -86,6 +86,8 @@ export default class Home extends Vue {
     flex-wrap: wrap
     justify-content: space-between
     align-items: center
+    row-gap: 40px
+    column-gap: 30px
 
   .name-filter
     width: 100%
@@ -96,13 +98,13 @@ export default class Home extends Vue {
     max-width: 200px
 
   .country-card
-    margin-right: 75px
     margin-bottom: 75px
 
   .content
     display: flex
     flex-wrap: wrap
-    justify-content: space-evenly
+    justify-content: space-between
+    column-gap: var(--gutter-size)
     width: 100%
     margin: auto
 </style>
