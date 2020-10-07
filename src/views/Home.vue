@@ -50,7 +50,7 @@ export default class Home extends Vue {
   selectedRegion = ''
 
   get filteredCountries(): Country[] {
-    return this.allCountries.filter((country: Country) => {
+    return this.$store.getters.allCountries.filter((country: Country) => {
       if (!country.name.toLocaleLowerCase().includes(this.countryNameFilter.toLocaleLowerCase())) {
         return false
       }
