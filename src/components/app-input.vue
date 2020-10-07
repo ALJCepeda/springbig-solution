@@ -4,7 +4,7 @@
       <slot name="leftIcon"></slot>
     </div>
 
-    <input placeholder="Search for a country..." :value="val" @input="onInputChange" ref="input" />
+    <input placeholder="Search for a country..." :value="val" @input="onInputChange" ref="input" type="text" />
   </main>
 </template>
 

@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap')
+@import mixins
 
 body
   margin: 0
-  background-color: yellow
   font-weight: 600
   font-family: 'Nunito Sans', sans-serif
 
@@ -13,13 +13,53 @@ body
     padding-right: var(--right-gutter-size)
     box-sizing: border-box
 
-input
+input[type='text']
   padding: 15px 0
+  border: 0
+  outline: 0
+  border-radius: var(--border-radius)
 
-  ::placeholder, :-ms-input-placeholder, ::-ms-input-placeholder
-    color: red
+  @include placeholder
+    color: var(--text-input)
 
 header
   display: flex
   align-items: center
   font-weight: 600
+
+button
+  color: var(--text-color)
+  outline: 0
+  border: 0
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)
+
+.detail
+  white-space: nowrap
+  margin-bottom: 15px
+
+  span
+    @extend .light-text
+    margin-left: 5px
+
+.badge
+  @extend .light-text
+  @extend .shadow
+  cursor: pointer
+  padding: 8px 20px
+  background-color: var(--element-bg-color)
+  white-space: nowrap
+
+.back-btn
+  @extend .light-text
+  padding: 10px 30px
+  background-color: var(--element-bg-color)
+  cursor: pointer
+
+  .fa-long-arrow-alt-left
+    margin-right: 8px
+
+.shadow
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)
+
+.shadow-sm
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)

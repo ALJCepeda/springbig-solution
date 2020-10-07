@@ -1,11 +1,20 @@
+@mixin upto-mobile
+  @media only screen and (max-width: 575px)
+    @content
+
 #app
   --left-gutter-size: 80px
   --right-gutter-size: 75px
+  --border-radius: 4px
+
+  @include upto-mobile
+    --left-gutter-size: 45px
+    --right-gutter-size: 45px
 
   .light-text
     font-weight: 300
 
-  .bold-bold
+  .bold-text
     font-weight: 800
 
 .light

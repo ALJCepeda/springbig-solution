@@ -1,21 +1,21 @@
 <template>
-  <main>
+  <main class="shadow">
     <img :src="country.flagURL" :alt="country.name + ' Flag'" />
 
     <section>
       <div class="title">{{ country.name }}</div>
       <div class="info">
-        <label>
+        <label class="detail">
           Population:
-          <span class="detail">{{ country.population }}</span>
+          <span>{{ country.population | prettify }}</span>
         </label>
-        <label>
+        <label class="detail">
           Region:
-          <span class="detail">{{ country.region }}</span>
+          <span>{{ country.region }}</span>
         </label>
-        <label>
+        <label class="detail">
           Capital:
-          <span class="detail">{{ country.capital }}</span>
+          <span>{{ country.capital }}</span>
         </label>
       </div>
     </section>
@@ -36,9 +36,9 @@ export default class AppCountryCard extends Vue {
 <style lang="sass" scoped>
   main
     background-color: var(--element-bg-color)
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)
     width: 265px
     padding-bottom: 10px
+    border-radius: var(--border-radius)
 
   *
     cursor: pointer
@@ -52,9 +52,13 @@ export default class AppCountryCard extends Vue {
     padding: 20px
 
   .title
+    @extend .bold-text
     margin-bottom: 20px
 
   .info
     display: flex
     flex-direction: column
+
+  .detail
+    margin-bottom: 8px
 </style>

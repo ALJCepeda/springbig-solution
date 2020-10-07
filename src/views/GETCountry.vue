@@ -1,58 +1,65 @@
 <template>
   <main class="view">
-    <div>
-      <img :src="country.flagURL" :alt="country.name + ' Flag'" />
-    </div>
+    <header>
+      <button class="back-btn shadow" @click="clickedBack()">
+        <fai icon="long-arrow-alt-left" />
+        Back
+      </button>
+    </header>
 
-    <div class="info-container">
-      <h1>{{ country.name }}</h1>
-
-      <div class="info">
-        <div class="aside">
-          <label class="detail">
-            Native Name:
-            <span>{{ country.nativeName }}</span>
-          </label>
-          <label class="detail">
-            Population:
-            <span>{{ country.population }}</span>
-          </label>
-          <label class="detail">
-            Region:
-            <span>{{ country.region }}</span>
-          </label>
-          <label class="detail">
-            Sub Region:
-            <span>{{ country.subRegion }}</span>
-          </label>
-          <label class="detail">
-            Capital:
-            <span>{{ country.capital }}</span>
-          </label>
-        </div>
-
-        <div class="aside">
-          <label class="detail">
-            Top Level Domain:
-            <span>{{ country.topLevelDomain.join(', ') }}</span>
-          </label>
-
-          <label class="detail">
-            Currencies:
-            <span>{{ country.currencies.join(', ') }}</span>
-          </label>
-
-          <label class="detail">
-            Languages:
-            <span>{{ country.languages.join(', ')}}</span>
-          </label>
-        </div>
+    <section class="content">
+      <div>
+        <img :src="country.flagURL" :alt="country.name + ' Flag'" />
       </div>
 
-      <div class="borders">
-        <label>Border Countries:</label>
+      <div class="info">
+        <h1>{{ country.name }}</h1>
 
-        <div class="badge-container">
+        <div class="description">
+          <div class="aside">
+            <label class="detail">
+              Native Name:
+              <span>{{ country.nativeName }}</span>
+            </label>
+            <label class="detail">
+              Population:
+              <span>{{ country.population | prettify }}</span>
+            </label>
+            <label class="detail">
+              Region:
+              <span>{{ country.region }}</span>
+            </label>
+            <label class="detail">
+              Sub Region:
+              <span>{{ country.subRegion }}</span>
+            </label>
+            <label class="detail">
+              Capital:
+              <span>{{ country.capital }}</span>
+            </label>
+          </div>
+
+          <div class="aside">
+            <label class="detail">
+              Top Level Domain:
+              <span>{{ country.topLevelDomain.join(', ') }}</span>
+            </label>
+
+            <label class="detail">
+              Currencies:
+              <span>{{ country.currencies.join(', ') }}</span>
+            </label>
+
+            <label class="detail">
+              Languages:
+              <span>{{ country.languages.join(', ') }}</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="badge-container" v-if="borderCountries.length !== 0">
+          <label>Border Countries:</label>
+
           <span
             v-for="borderCountry in borderCountries"
             :key="borderCountry.name"
@@ -64,18 +71,15 @@
           </span>
         </div>
       </div>
-    </div>
+    </section>
   </main>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Country from '@/models/Country'
-import AppCountryBadge from '@/components/app-country-badge.vue'
 
-@Component({
-  components: { AppCountryBadge }
-})
+@Component
 export default class GETCountry extends Vue {
   get country(): Country {
     return this.$store.getters.countryFromId(this.$route.params.id)
@@ -89,14 +93,23 @@ export default class GETCountry extends Vue {
   clickedBadge(country: Country): void {
     this.$router.push(`/${country.alphaCodes[0]}`)
   }
+
+  clickedBack(): void {
+    this.$router.push('/')
+  }
 }
 </script>
 
 <style scoped lang="sass">
-  .view
+  header
+    margin-top: 70px
+    margin-bottom: 20px
+    padding: 0 var(--left-gutter-size)
+
+  .content
     display: flex
     flex-wrap: wrap
-    padding: 250px var(--left-gutter-size) 340px var(--left-gutter-size)
+    padding: 0 var(--left-gutter-size)
 
   img
     display: block
@@ -104,7 +117,7 @@ export default class GETCountry extends Vue {
     width: 100%
     max-width: 560px
 
-  .info
+  .description
     display: flex
     flex-wrap: wrap
 
@@ -112,7 +125,6 @@ export default class GETCountry extends Vue {
       max-width: 295px
 
   h1
-    margin-top: 40px
     margin-bottom: 45px
 
   .aside
@@ -120,43 +132,27 @@ export default class GETCountry extends Vue {
     flex-direction: column
     box-sizing: border-box
     flex-grow: 2
+    margin-bottom: 50px
 
     &:first-child
       margin-right: 25px
+      margin-bottom: 50px
 
-  .info-container
+  .info
     flex-grow: 1
     flex-basis: 0
 
-  .detail
-    white-space: nowrap
-    margin-bottom: 15px
-
-    span
-      @extend .light-text
-      margin-left: 5px
-
-  .borders
+  .badge-container
     display: flex
-    margin-top: 70px
+    flex-wrap: wrap
 
     label
       white-space: nowrap
       margin-right: 10px
       padding-top: 7px
+      margin-bottom: 20px
 
-    .badge-container
-      display: flex
-      flex-wrap: wrap
-
-      > *
-        margin-right: 10px
-        margin-bottom: 15px
-
-  .badge
-    @extend .light-text
-    cursor: pointer
-    padding: 8px 20px
-    background-color: var(--element-bg-color)
-    white-space: nowrap
+    > *
+      margin-right: 10px
+      margin-bottom: 10px
 </style>

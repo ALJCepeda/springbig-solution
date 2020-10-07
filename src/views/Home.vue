@@ -1,13 +1,11 @@
 <template>
   <main class="view">
     <section class="filters">
-      <label>
-        <app-input style="width:400px" v-model="countryNameFilter">
-          <template v-slot:leftIcon>
-            <fai icon="search" />
-          </template>
-        </app-input>
-      </label>
+      <app-input class="name-filter shadow-sm" v-model="countryNameFilter">
+        <template v-slot:leftIcon>
+          <fai icon="search" />
+        </template>
+      </app-input>
     </section>
 
     <section class="content">
@@ -33,7 +31,7 @@ import { mapGetters } from 'vuex'
   components: { AppInput, AppCountryCard },
   computed: {
     ...mapGetters([
-      'countries'
+      'allCountries'
     ])
   }
 })
@@ -41,7 +39,7 @@ export default class Home extends Vue {
   countryNameFilter = ''
 
   get filteredCountries(): Country[] {
-    return this.countries.filter((country) => country.name.toLocaleLowerCase().includes(this.countryNameFilter.toLocaleLowerCase()))
+    return this.allCountries.filter((country) => country.name.toLocaleLowerCase().includes(this.countryNameFilter.toLocaleLowerCase()))
   }
 
   clickedCountry(country: Country) {
@@ -51,6 +49,9 @@ export default class Home extends Vue {
 </script>
 
 <style scoped lang="sass">
+  .name-filter
+    width: 400px
+
   .country-card
     margin-right: 75px
     margin-bottom: 75px
