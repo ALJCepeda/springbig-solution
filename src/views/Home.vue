@@ -1,11 +1,13 @@
 <template>
   <main class="view">
     <section class="filters">
-      <app-input class="name-filter shadow-sm" v-model="countryNameFilter">
+      <app-input class="name-filter shadow-sm" :value.sync="countryNameFilter">
         <template v-slot:leftIcon>
           <fai icon="search" />
         </template>
       </app-input>
+
+      <app-dropdown class="region-filter shadow-sm" :items="availableRegions" :selected.sync="selectedRegion" :placeholder="'Filter by Region'"></app-dropdown>
     </section>
 
     <section class="content">
@@ -22,24 +24,37 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import AppDropdown from '@/components/app-dropdown.vue'
 import AppInput from '@/components/app-input.vue'
 import AppCountryCard from '@/components/app-country-card.vue'
 import Country from '@/models/Country'
 import { mapGetters } from 'vuex'
 
 @Component({
-  components: { AppInput, AppCountryCard },
+  components: { AppDropdown, AppInput, AppCountryCard },
   computed: {
     ...mapGetters([
-      'allCountries'
+      'allCountries',
+      'availableRegions'
     ])
   }
 })
 export default class Home extends Vue {
   countryNameFilter = ''
+  selectedRegion = ''
 
   get filteredCountries(): Country[] {
-    return this.allCountries.filter((country) => country.name.toLocaleLowerCase().includes(this.countryNameFilter.toLocaleLowerCase()))
+    return this.allCountries.filter((country: Country) => {
+      if (!country.name.toLocaleLowerCase().includes(this.countryNameFilter.toLocaleLowerCase())) {
+        return false
+      }
+
+      if (this.selectedRegion !== '' && country.region !== this.selectedRegion) {
+        return false
+      }
+
+      return true
+    })
   }
 
   clickedCountry(country: Country) {
@@ -49,8 +64,19 @@ export default class Home extends Vue {
 </script>
 
 <style scoped lang="sass">
+  .filters
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+    align-items: center
+
   .name-filter
-    width: 400px
+    width: 100%
+    max-width: 400px
+
+  .region-filter
+    width: 100%
+    max-width: 200px
 
   .country-card
     margin-right: 75px

@@ -1,9 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'
-import router from './router'
+import { initializeRouter } from './router'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faLongArrowAltLeft, faMoon, faSearch, faSun } from '@fortawesome/free-solid-svg-icons'
+import {
+  faAngleDown,
+  faLongArrowAltLeft,
+  faMoon,
+  faSearch,
+  faSun,
+  faTimesCircle
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { initializeStore } from '@/store'
 import { initializeFilters } from '@/filters'
@@ -11,12 +18,13 @@ import { initializeFilters } from '@/filters'
 Vue.use(Vuex)
 const store = initializeStore()
 
-library.add(faSearch, faLongArrowAltLeft, faMoon, faSun)
+library.add(faSearch, faLongArrowAltLeft, faMoon, faSun, faTimesCircle, faAngleDown)
 Vue.component('fai', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
 initializeFilters(Vue)
+const router = initializeRouter(store)
 
 Promise.all([
   store.dispatch('fetchCountries')

@@ -1,7 +1,9 @@
 import Vuex, { Store } from 'vuex'
 import Country from '@/models/Country'
+import { AppError, UserError } from '@/errors'
 
-interface AppState {
+export interface AppState {
+  errors: AppError[];
   countries: Country[];
   index: Map<string, Country>;
 }
@@ -9,6 +11,7 @@ interface AppState {
 export function initializeStore(): Store<AppState> {
   return new Vuex.Store({
     state: {
+      errors: [],
       countries: [],
       index: new Map() // Indexes by alpha code and name
     } as AppState,
@@ -34,15 +37,26 @@ export function initializeStore(): Store<AppState> {
             const country = state.index.get(alphaCode)
 
             if (!country) {
-              throw new Error(`Unable to find country for alphacode: ${alphaCode}`)
+              return null
             }
 
             return country.name
           })
         }
+      },
+      displayableErrors(state) {
+        return state.errors.filter((error) => error instanceof UserError && !error.cleared)
+      },
+      availableRegions(state) {
+        const regions = state.countries.reduce((regions, country) => regions.add(country.region), new Set())
+          .values()
+        return Array.from(regions)
       }
     },
     mutations: {
+      encounteredErrors(state, errors: AppError[]) {
+        state.errors = state.errors.concat(errors)
+      },
       setCountries(state, countries: Country[]) {
         state.countries = countries
         state.index = countries.reduce((res, country) => {

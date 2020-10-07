@@ -1,5 +1,5 @@
 <template>
-  <main class="view">
+  <main class="view" v-if="country">
     <header>
       <button class="back-btn shadow" @click="clickedBack()">
         <fai icon="long-arrow-alt-left" />

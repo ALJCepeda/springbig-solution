@@ -20,7 +20,7 @@ export default class Country {
     return {
       name: raw.name,
       population: raw.population,
-      region: raw.region,
+      region: raw.region || 'None',
       capital: raw.capital,
       alphaCodes: [raw.alpha2Code, raw.alpha3Code],
       flagURL: raw.flag,
