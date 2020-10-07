@@ -9,12 +9,11 @@ export interface AppState {
 }
 
 function GenericAPIErrorCatcher(context: ActionContext<AppState, AppState>) {
-  return (resp: any) => {
+  return () => {
     /*
       Do some error logging here
    */
-    console.log(resp)
-    debugger
+
     context.commit('encounteredErrors', [
       new APIError('Error encountered connecting to API, please contact support at 911 if this error persists')
     ])
