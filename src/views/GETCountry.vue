@@ -1,7 +1,7 @@
 <template>
   <main class="view" v-if="country">
     <header>
-      <button class="back-btn shadow" @click="clickedBack()">
+      <button class="back-btn shadow-sm" @click="clickedBack()">
         <fai icon="long-arrow-alt-left" />
         Back
       </button>
@@ -97,12 +97,16 @@ export default class GETCountry extends Vue {
   clickedBack(): void {
     this.$router.push('/')
   }
+
+  created(): void {
+    document.title = 'Details'
+  }
 }
 </script>
 
 <style scoped lang="sass">
   header
-    margin-top: 70px
+    margin-top: 50px
     margin-bottom: 20px
     padding: 0 var(--left-gutter-size)
 
@@ -139,6 +143,7 @@ export default class GETCountry extends Vue {
       margin-bottom: 50px
 
   .info
+    margin-top: 30px
     flex-grow: 1
     flex-basis: 0
 

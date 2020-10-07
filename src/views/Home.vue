@@ -5,6 +5,12 @@
         <template v-slot:leftIcon>
           <fai icon="search" />
         </template>
+
+        <template v-slot:rightIcon  v-if="this.countryNameFilter">
+          <span style="cursor:pointer;" @click="clickedClearNameFilter()">
+            <fai icon="times" />
+          </span>
+        </template>
       </app-input>
 
       <app-dropdown class="region-filter shadow-sm" :items="availableRegions" :selected.sync="selectedRegion" :placeholder="'Filter by Region'"></app-dropdown>
@@ -16,7 +22,7 @@
       </div>
 
       <div v-if="filteredCountries.length === 0">
-        No countries found :(
+        No countries found, please check your filters :(
       </div>
     </section>
   </main>
@@ -49,7 +55,7 @@ export default class Home extends Vue {
         return false
       }
 
-      if (this.selectedRegion !== '' && country.region !== this.selectedRegion) {
+      if (this.selectedRegion && country.region !== this.selectedRegion) {
         return false
       }
 
@@ -60,10 +66,21 @@ export default class Home extends Vue {
   clickedCountry(country: Country) {
     this.$router.push(`/${country.alphaCodes[0]}`)
   }
+
+  clickedClearNameFilter() {
+    this.countryNameFilter = ''
+  }
+
+  created(): void {
+    document.title = 'Home'
+  }
 }
 </script>
 
 <style scoped lang="sass">
+  main
+    font-size: 14px
+
   .filters
     display: flex
     flex-wrap: wrap

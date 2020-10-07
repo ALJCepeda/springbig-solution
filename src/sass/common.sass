@@ -6,6 +6,9 @@ body
   font-weight: 600
   font-family: 'Nunito Sans', sans-serif
 
+h1, h2, h3, h4, h5, h6
+  font-weight: 800
+
 .view
   > section
     padding-top: 47px
@@ -43,11 +46,13 @@ button
   padding: 8px 20px
   background-color: var(--element-bg-color)
   white-space: nowrap
+  border-radius:  var(--border-radius)
 
 .back-btn
   @extend .light-text
   padding: 10px 30px
   background-color: var(--element-bg-color)
+  border-radius:  var(--border-radius)
   cursor: pointer
 
   .fa-long-arrow-alt-left
@@ -62,3 +67,6 @@ button
 .gutters
   padding-left: var(--left-gutter-size)
   padding-right: var(--right-gutter-size)
+
+main
+  border: none

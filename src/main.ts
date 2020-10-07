@@ -9,7 +9,8 @@ import {
   faMoon,
   faSearch,
   faSun,
-  faTimesCircle
+  faTimesCircle,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { initializeStore } from '@/store'
@@ -18,7 +19,7 @@ import { initializeFilters } from '@/filters'
 Vue.use(Vuex)
 const store = initializeStore()
 
-library.add(faSearch, faLongArrowAltLeft, faMoon, faSun, faTimesCircle, faAngleDown)
+library.add(faSearch, faLongArrowAltLeft, faMoon, faSun, faTimesCircle, faAngleDown, faTimes)
 Vue.component('fai', FontAwesomeIcon)
 
 Vue.config.productionTip = false
@@ -26,12 +27,8 @@ Vue.config.productionTip = false
 initializeFilters(Vue)
 const router = initializeRouter(store)
 
-Promise.all([
-  store.dispatch('fetchCountries')
-]).then(() => {
-  new Vue({
-    router,
-    render: h => h(App),
-    store
-  }).$mount('#app')
-})
+new Vue({
+  router,
+  render: h => h(App),
+  store
+}).$mount('#app')

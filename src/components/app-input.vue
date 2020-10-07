@@ -5,6 +5,10 @@
     </div>
 
     <input placeholder="Search for a country..." :value="value" @input="$emit('update:value', $event.target.value)" type="text" />
+
+    <div v-if="$slots.rightIcon" class="icon">
+      <slot name="rightIcon"></slot>
+    </div>
   </main>
 </template>
 

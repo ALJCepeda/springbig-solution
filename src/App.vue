@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="{ dark: isDark }">
+  <div id="app" :class="{ dark: isDark, light: !isDark }">
     <header class="shadow-sm gutters">
       <h3>
         Where in the world?
@@ -25,7 +25,13 @@
       </div>
     </div>
 
-    <router-view />
+    <div v-show="!fetching">
+      <router-view />
+    </div>
+
+    <div v-if="fetching">
+      <h3>Pretend there some fancy loading screen here with a bunch of shiny trinkets moving around to keep you distracted while I fetch data</h3>
+    </div>
   </div>
 </template>
 
@@ -43,6 +49,11 @@ import { mapGetters } from 'vuex'
 export default class App extends Vue {
   name='App'
   isDark = true
+  fetching = true
+
+  created() {
+    this.$store.dispatch('fetchCountries').finally(() => this.fetching = false)
+  }
 }
 </script>
 
@@ -78,4 +89,7 @@ export default class App extends Vue {
   .theme-btn
     cursor: pointer
     margin-left: auto
+
+  .fa-moon, .fa-sun
+    margin-right: 5px
 </style>

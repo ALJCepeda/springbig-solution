@@ -1,9 +1,9 @@
 <template>
-  <main class="shadow">
+  <main class="shadow-sm">
     <img :src="country.flagURL" :alt="country.name + ' Flag'" />
 
     <section>
-      <div class="title">{{ country.name }}</div>
+      <div class="title bold-text">{{ country.name }}</div>
       <div class="info">
         <label class="detail">
           Population:
@@ -47,12 +47,13 @@ export default class AppCountryCard extends Vue {
     width: 100%
     height: 160px
     object-fit: cover
+    border-top-left-radius: var(--border-radius)
+    border-top-right-radius: var(--border-radius)
 
   section
     padding: 20px
 
   .title
-    @extend .bold-text
     margin-bottom: 20px
 
   .info

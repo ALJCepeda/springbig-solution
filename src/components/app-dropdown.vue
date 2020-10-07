@@ -1,12 +1,18 @@
 <template>
-  <main @focus="focused = true" @focusout="focused = false" tabindex="-1">
+  <main @focus="focused = true" @focusout="focused = false" tabindex="-1" class="light-text">
     <div class="selected shadow-sm" @click="focused = true">
       {{ selected || placeholder }}
 
-      <fai icon="angle-down" />
+      <span v-if="!selected">
+        <fai icon="angle-down" />
+      </span>
+
+      <span v-if="selected" @click.stop="clickedClear()">
+        <fai icon="times" />
+      </span>
     </div>
 
-    <div class="items" v-if="focused">
+    <div class="items shadow" v-if="focused">
       <div class="item" v-for="item in items" :key="item" :class="{ hidden: selected === item }" @click="clickedItem(item)">
         {{ item }}
       </div>
@@ -20,22 +26,25 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component
 export default class AppDropdown extends Vue {
   name = 'app-dropdown'
-  @Prop() items!: any
-  @Prop() selected!: any
-  @Prop() placeholder!: any
+  @Prop() items!: string[]
+  @Prop() selected!: string
+  @Prop() placeholder!: string
 
   focused = false
 
-  clickedItem(item: string): void {
+  clickedItem(item: string | null): void {
     this.$emit('update:selected', item)
     this.focused = false
+  }
+
+  clickedClear(): void {
+    this.clickedItem(null)
   }
 }
 </script>
 
 <style lang="sass" scoped>
   main
-    @extend .light-text
     position: relative
     background-color: transparent
     outline: 0
@@ -65,7 +74,7 @@ export default class AppDropdown extends Vue {
   .item
     padding: 5px 20px
     border-radius: var(--border-radius)
+
     &:hover
-      text-decoration: underline
-      background-color: slategrey
+      background-color: var(--element-highlight-color)
 </style>
