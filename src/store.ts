@@ -10,15 +10,22 @@ export function initializeStore(): Store<AppState> {
   return new Vuex.Store({
     state: {
       countries: [],
-      index: new Map()
+      index: new Map() // Indexes by alpha code and name
     } as AppState,
     getters: {
-      countries(state) {
+      allCountries(state) {
         return state.countries
       },
-      country(state) {
+      countryFromId(state) {
         return (id: string) => {
           return state.index.get(id)
+        }
+      },
+      countriesFromAlphaCodes(state) {
+        return (alphaCodes: string[]) => {
+          return alphaCodes.map((alphaCode) => {
+            return state.index.get(alphaCode)
+          })
         }
       },
       names(state) {

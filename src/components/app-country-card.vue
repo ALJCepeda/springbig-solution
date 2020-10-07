@@ -40,6 +40,9 @@ export default class AppCountryCard extends Vue {
     width: 265px
     padding-bottom: 10px
 
+  *
+    cursor: pointer
+
   img
     width: 100%
     height: 160px

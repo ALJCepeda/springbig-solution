@@ -10,6 +10,7 @@ export default class Country {
   public currencies!: string[]
   public languages!: string[]
   public subRegion!: string
+  public borders!: string[];
 
   constructor(data: Country) {
     Object.assign(this, data)
@@ -27,7 +28,8 @@ export default class Country {
       topLevelDomain: raw.topLevelDomain,
       currencies: raw.currencies.map((currency: any) => currency.name),
       languages: raw.languages.map((language: any) => language.name),
-      subRegion: raw.subregion
+      subRegion: raw.subregion,
+      borders: raw.borders
     }
   }
 }
